@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ============ DESIGN TOKENS ============ */
+:root {
+  --ink: #0A0B0F;
+  --ink-2: #14161C;
+  --ink-3: #1E212A;
+  --line: rgba(255,255,255,0.08);
+  --line-strong: rgba(255,255,255,0.16);
+  --text: #F5F1E8;
+  --text-dim: rgba(245,241,232,0.62);
+  --text-faint: rgba(245,241,232,0.38);
+  --lime: #D4FF3D;
+  --lime-dim: #A8CC2E;
+  --magenta: #FF3D7F;
+  --cyan: #4DE3D5;
+  --cream: #F5F1E8;
+  --warn: #FFB23D;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Inter', 'Space Grotesk', system-ui, sans-serif;
+  background: var(--ink);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+#root { min-height: 100vh; background: var(--ink); }
+
+::selection { background: rgba(212,255,61,0.25); color: var(--ink); }
+
+.display { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.02em; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-feature-settings: 'tnum' 1; }
+.tracking { letter-spacing: 0.18em; text-transform: uppercase; }
+
+/* ============ GRAIN OVERLAY ============ */
+.grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.08;
+  mix-blend-mode: overlay; z-index: 50;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ============ SHARED ELEMENTS ============ */
+.glow-lime { box-shadow: 0 0 60px rgba(212,255,61,0.25); }
+.glow-magenta { box-shadow: 0 0 60px rgba(255,61,127,0.25); }
+
+.btn-primary {
+  background: var(--lime); color: #0A0B0F; font-weight: 600; border: none;
+  cursor: pointer; transition: transform .15s, box-shadow .2s;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(212,255,61,0.4); }
+
+.btn-ghost {
+  background: transparent; color: var(--text); border: 1px solid var(--line-strong);
+  cursor: pointer; transition: all .15s;
+}
+.btn-ghost:hover { background: var(--ink-3); border-color: var(--lime); }
+
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--lime); display: inline-block;
+  box-shadow: 0 0 0 0 rgba(212,255,61,0.7);
+  animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(212,255,61,0.7); }
+  70%  { box-shadow: 0 0 0 10px rgba(212,255,61,0); }
+  100% { box-shadow: 0 0 0 0 rgba(212,255,61,0); }
+}
+
+@keyframes slide-up   { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: none; } }
+@keyframes marquee    { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes spin-slow  { to { transform: rotate(360deg); } }
+@keyframes shimmer    { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes float-orb  { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-20px) scale(1.05); } 66% { transform: translate(-20px,15px) scale(0.95); } }
+
+/* ============ LOGIN ============ */
+.login-orb {
+  position: absolute; border-radius: 50%; filter: blur(80px);
+  animation: float-orb 14s ease-in-out infinite; pointer-events: none;
+}
+
+.login-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 75%);
+}
+
+.login-input {
+  width: 100%; background: transparent; border: none;
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--text); font: 500 18px/1.4 'Inter';
+  padding: 18px 0 14px; outline: none; transition: border-color .2s;
+}
+.login-input:focus { border-bottom-color: var(--lime); }
+.login-input::placeholder { color: transparent; }
+.login-field { position: relative; }
+.login-field label {
+  position: absolute; left: 0; top: 18px; color: var(--text-faint);
+  font-size: 18px; pointer-events: none; transition: all .2s;
+}
+.login-input:focus + label,
+.login-input:not(:placeholder-shown) + label {
+  top: -2px; font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--lime);
+}
+
+/* ============ CARDS ============ */
+.metric-card {
+  background: var(--ink-2); border: 1px solid var(--line);
+  border-radius: 20px; padding: 24px; position: relative; overflow: hidden;
+}
+.metric-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 100% 0%, rgba(212,255,61,0.08), transparent 50%);
+  pointer-events: none;
+}
+
+.member-card {
+  background: var(--ink-2); border: 1px solid var(--line); border-radius: 24px;
+  transition: transform .25s, border-color .2s;
+}
+.member-card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+
+/* ============ SIDEBAR NAV ============ */
+.nav-item {
+  display: flex; align-items: center; gap: 14px; padding: 11px 14px;
+  border-radius: 12px; color: var(--text-dim); font-weight: 500;
+  cursor: pointer; transition: all .15s; position: relative;
+}
+.nav-item:hover { color: var(--text); background: var(--ink-3); }
+.nav-item.active { color: var(--ink); background: var(--lime); font-weight: 600; }
+.nav-item .ico { width: 18px; height: 18px; opacity: 0.85; }
+
+/* ============ SHIMMER TEXT ============ */
+.shimmer-text {
+  background: linear-gradient(90deg, var(--text-dim) 0%, var(--text) 50%, var(--text-dim) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ============ TICKER ============ */
+.ticker-row { display: flex; white-space: nowrap; overflow: hidden; }
+.ticker-track { display: flex; animation: marquee 40s linear infinite; }
+
+/* ============ PROGRESS ARC ============ */
+.arc-track { stroke: var(--line); }
+.arc-fill { stroke: var(--lime); stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+
+/* ============ DIVIDERS ============ */
+.dotted {
+  background-image: linear-gradient(to right, var(--line-strong) 50%, transparent 0);
+  background-size: 8px 1px; background-repeat: repeat-x; height: 1px;
+}
+
+/* ============ BENTO CORNER TICKS ============ */
+.ticks { position: absolute; width: 14px; height: 14px; border-color: var(--lime); border-style: solid; }
+.ticks.tl { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.ticks.tr { top: 10px; right: 10px; border-width: 1px 1px 0 0; }
+.ticks.bl { bottom: 10px; left: 10px; border-width: 0 0 1px 1px; }
+.ticks.br { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+/* ============ SPARKLINE ============ */
+.spark path { fill: none; stroke: var(--lime); stroke-width: 2; }
+
+/* ============ CHECKER PATTERN ============ */
+.checker {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: repeating-linear-gradient(45deg, white 0 1px, transparent 1px 8px);
+}
+
+/* ============ SCROLLBAR ============ */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--ink-2); }
+::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* ============ ATLAS APP DARK OVERRIDES ============ */
+.atlas-page {
+  background: var(--ink);
+  min-height: 100vh;
+  color: var(--text);
+}
+
+.atlas-card {
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  transition: border-color .2s;
+}
+.atlas-card:hover { border-color: var(--line-strong); }
+
+.atlas-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.atlas-badge.lime { background: rgba(212,255,61,0.12); color: var(--lime); }
+.atlas-badge.magenta { background: rgba(255,61,127,0.12); color: var(--magenta); }
+.atlas-badge.cyan { background: rgba(77,227,213,0.12); color: var(--cyan); }
+.atlas-badge.warn { background: rgba(255,178,61,0.12); color: var(--warn); }

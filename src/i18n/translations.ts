@@ -1,0 +1,62 @@
+export const translations = {
+  fr: {
+    'app.title': 'Atlas Gym Studio',
+    'nav.overview': 'Apercu',
+    'nav.members': 'Membres',
+    'nav.memberships': 'Abonnements',
+    'nav.payments': 'Paiements',
+    'nav.attendance': 'Presences',
+    'nav.classes': 'Cours',
+    'nav.trainers': 'Coachs',
+    'nav.equipment': 'Equipements',
+    'nav.crm': 'CRM',
+    'nav.staff': 'Equipe',
+    'nav.reports': 'Rapports',
+    'nav.branches': 'Salles',
+    'nav.settings': 'Parametres',
+    'action.logout': 'Deconnexion',
+    'action.add': 'Ajouter',
+    'action.viewAll': 'Tout voir',
+    'label.language': 'Langue',
+    'overview.title': 'Centre de Commande Admin',
+    'overview.subtitle': 'Suivez les membres, les abonnements et les performances en temps reel.',
+    'overview.kpi.activeMembers': 'Membres actifs',
+    'overview.kpi.monthlyRevenue': 'Revenus mensuels',
+    'overview.kpi.checkinsToday': 'Presences du jour',
+    'overview.kpi.trialLeads': 'Leads en essai',
+    'overview.kpi.activeClasses': 'Cours actifs',
+    'overview.kpi.staffOnShift': 'Equipe en service'
+  },
+  en: {
+    'app.title': 'Atlas Gym Studio',
+    'nav.overview': 'Overview',
+    'nav.members': 'Members',
+    'nav.memberships': 'Memberships',
+    'nav.payments': 'Payments',
+    'nav.attendance': 'Attendance',
+    'nav.classes': 'Classes',
+    'nav.trainers': 'Trainers',
+    'nav.equipment': 'Equipment',
+    'nav.crm': 'CRM',
+    'nav.staff': 'Staff',
+    'nav.reports': 'Reports',
+    'nav.branches': 'Branches',
+    'nav.settings': 'Settings',
+    'action.logout': 'Logout',
+    'action.add': 'Add',
+    'action.viewAll': 'View all',
+    'label.language': 'Language',
+    'overview.title': 'Admin Command Center',
+    'overview.subtitle': 'Track members, memberships, and performance in real time.',
+    'overview.kpi.activeMembers': 'Active members',
+    'overview.kpi.monthlyRevenue': 'Monthly revenue',
+    'overview.kpi.checkinsToday': 'Check-ins today',
+    'overview.kpi.trialLeads': 'Trial leads',
+    'overview.kpi.activeClasses': 'Active classes',
+    'overview.kpi.staffOnShift': 'Staff on shift'
+  }
+} as const;
+
+export type Language = keyof typeof translations;
+export const defaultLanguage: Language = 'fr';
+export {};
